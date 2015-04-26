@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>Practical Machine Learning - Project</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.4.1  (Win32)">
+	<META NAME="AUTHOR" CONTENT="Author J">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="0;0">
+	<META NAME="AppVersion" CONTENT="12.0000">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-top: 0.13in; margin-bottom: 0.08in; direction: ltr; color: #000000; widows: 2; orphans: 2 }
+		H1 { margin-top: 0.33in; margin-bottom: 0in; direction: ltr; color: #345a8a; page-break-inside: avoid; widows: 2; orphans: 2 }
+		H1.western { font-family: "Calibri", serif; font-size: 18pt }
+		H1.cjk { font-family: "SimSun"; font-size: 18pt }
+		H1.ctl { font-family: ; font-size: 18pt }
+		H2 { margin-top: 0.14in; margin-bottom: 0in; direction: ltr; color: #4f81bd; page-break-inside: avoid; widows: 2; orphans: 2 }
+		H2.western { font-family: "Calibri", serif; font-size: 16pt }
+		H2.cjk { font-family: "SimSun"; font-size: 16pt }
+		H2.ctl { font-family: ; font-size: 16pt }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" DIR="LTR">
+<P ALIGN=CENTER STYLE="margin-top: 0.33in; margin-bottom: 0.17in; page-break-inside: avoid; page-break-after: avoid">
+<FONT COLOR="#345a8a"><FONT FACE="Calibri, serif"><FONT SIZE=5><B>Practical
+Machine Learning - Project</B></FONT></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0in; margin-bottom: 0.14in; page-break-inside: avoid; page-break-after: avoid">
+Author J</P>
+<P ALIGN=CENTER STYLE="margin-top: 0in; margin-bottom: 0.14in; page-break-inside: avoid; page-break-after: avoid">
+Sunday, April 26, 2015</P>
+<H1 CLASS="western"><A NAME="introduction"></A>Introduction</H1>
+<P STYLE="margin-bottom: 0.13in">Using devices such as Jawbone Up,
+Nike FuelBand, and Fitbit it is now possible to collect a large
+amount of data about personal activity relatively inexpensively.
+These type of devices are part of the quantified self movement - a
+group of enthusiasts who take measurements about themselves regularly
+to improve their health, to find patterns in their behavior, or
+because they are tech geeks. One thing that people regularly do is
+quantify how much of a particular activity they do, but they rarely
+quantify how well they do it. In this project, your goal will be to
+use data from accelerometers on the belt, forearm, arm, and dumbell
+of 6 participants. They were asked to perform barbell lifts correctly
+and incorrectly in 5 different ways. More information is available
+from the website here: <FONT COLOR="#4f81bd"><A HREF="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</A></FONT>
+(see the section on the Weight Lifting Exercise Dataset).</P>
+<H2 CLASS="western"><A NAME="data"></A>Data</H2>
+<P STYLE="margin-bottom: 0.13in">The training data for this project
+are available here:
+<FONT COLOR="#4f81bd"><A HREF="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</A></FONT></P>
+<P STYLE="margin-bottom: 0.13in">The test data are available here:
+<FONT COLOR="#4f81bd"><A HREF="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</A></FONT></P>
+<P STYLE="margin-bottom: 0.13in">The data for this project come from
+this source: <FONT COLOR="#4f81bd"><A HREF="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</A></FONT>.</P>
+<H2 CLASS="western"><A NAME="load-library"></A>Load Library</H2>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>library</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(caret)</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Warning: package 'caret' was built under R version 3.1.3</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Loading required package: lattice</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Loading required package: ggplot2</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Warning: package 'ggplot2' was built under R version 3.1.2</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>library</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(randomForest)</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Warning: package 'randomForest' was built under R version 3.1.3</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+randomForest 4.6-10</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Type rfNews() to see new features/changes/bug fixes.</FONT></FONT></P>
+<H2 CLASS="western"><A NAME="read-files-and-clean-up-data"></A>Read
+files and Clean up data</H2>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>read.csv</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">file=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;pml-training.csv&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">header=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#8f5902"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">TRUE</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">sep
+=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;,&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">na.strings=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>c</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;NA&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">))</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in">Remove columns 1-7 as it is non
+numerical data</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[,-(</FONT></FONT><FONT COLOR="#0000cf"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">1</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">:</FONT></FONT><FONT COLOR="#0000cf"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">7</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">)]</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in">Remove NA</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[,</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>which</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>as.numeric</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>colSums</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>is.na</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(data)))==</FONT></FONT><FONT COLOR="#0000cf"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">)]</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in">Remove near zero variance columns as
+it would meaningless</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">end
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>ncol</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(data)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[,-end]
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>data.frame</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>sapply</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(data[,-end],
+as.numeric))</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">nzv
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>nearZeroVar</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(data[,
+-end], </FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">saveMetrics=</FONT></FONT></FONT><FONT COLOR="#8f5902"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">TRUE</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[,!</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>as.logical</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(nzv$nzv)]</FONT></FONT></P>
+<H2 CLASS="western"><A NAME="data-processing"></A>Data Processing</H2>
+<P STYLE="margin-bottom: 0.13in">Partition data</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>set.seed</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#0000cf"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">888</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">inTrain&lt;-</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>createDataPartition</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">y=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data$classe,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">p=</FONT></FONT></FONT><FONT COLOR="#0000cf"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">0.6</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">list=</FONT></FONT></FONT><FONT COLOR="#8f5902"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">FALSE</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">train
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[inTrain,]</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">validation
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data[-inTrain,]</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in">Fitting a model to predict classe
+and everything else as a predictor</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">rfModel
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>randomForest</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(classe
+~</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">.,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">data
+=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+train)</FONT></FONT><BR><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">ptrain
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>predict</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(rfModel,
+train)</FONT></FONT><BR><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>print</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>confusionMatrix</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(ptrain,
+train$classe))</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Confusion Matrix and Statistics</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+          Reference</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Prediction    A    B    C    D    E</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         A 3348    0    0    0    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         B    0 2279    0    0    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         C    0    0 2054    0    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         D    0    0    0 1930    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         E    0    0    0    0 2165</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Overall Statistics</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                                     </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+               Accuracy : 1          </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                 95% CI : (0.9997, 1)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+    No Information Rate : 0.2843     </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16  </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                                     </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                  Kappa : 1          </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+ Mcnemar's Test P-Value : NA         </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Statistics by Class:</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                     Class: A Class: B Class: C Class: D Class: E</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Sensitivity            1.0000   1.0000   1.0000   1.0000   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Specificity            1.0000   1.0000   1.0000   1.0000   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Pos Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Neg Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Detection Rate         0.2843   0.1935   0.1744   0.1639   0.1838</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Detection Prevalence   0.2843   0.1935   0.1744   0.1639   0.1838</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Balanced Accuracy      1.0000   1.0000   1.0000   1.0000   1.0000</FONT></FONT></P>
+<H2 CLASS="western"><A NAME="validation-the-40-of-the-remaining-data"></A>
+Validation the 40% of the remaining data</H2>
+<P STYLE="margin-bottom: 0.13in">The model is used to classify the
+remaining 40% of data. The results were placed in a confusion matrix
+along with the actual classifications in order to determine the
+accuracy of the model.</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">pvalidation
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>predict</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(rfModel,
+validation)</FONT></FONT><BR><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>print</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>confusionMatrix</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(pvalidation,
+validation$classe))</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Confusion Matrix and Statistics</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+          Reference</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Prediction    A    B    C    D    E</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         A 2232   11    0    0    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         B    0 1506   11    0    0</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         C    0    1 1356   17    1</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         D    0    0    1 1269    5</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+         E    0    0    0    0 1436</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Overall Statistics</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                                         </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+               Accuracy : 0.994          </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                 95% CI : (0.992, 0.9956)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+    No Information Rate : 0.2845         </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16      </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                                         </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                  Kappa : 0.9924         </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+ Mcnemar's Test P-Value : NA             </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Statistics by Class:</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+                     Class: A Class: B Class: C Class: D Class: E</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Sensitivity            1.0000   0.9921   0.9912   0.9868   0.9958</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Specificity            0.9980   0.9983   0.9971   0.9991   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Pos Pred Value         0.9951   0.9927   0.9862   0.9953   1.0000</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Neg Pred Value         1.0000   0.9981   0.9981   0.9974   0.9991</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Detection Rate         0.2845   0.1919   0.1728   0.1617   0.1830</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Detection Prevalence   0.2859   0.1933   0.1752   0.1625   0.1830</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Balanced Accuracy      0.9990   0.9952   0.9941   0.9929   0.9979</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in">The model has an accuracy of 99.4%.
+The out of sample range is 0.6% which shows that the model is robust
+and adequate to predict the new data.</P>
+<H1 CLASS="western"><A NAME="final-test-set"></A>Final Test Set</H1>
+<P STYLE="margin-bottom: 0.13in">The model tested is now used to
+predict the 20 test data set.</P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">predictionTest
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>read.csv</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">file=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;pml-testing.csv&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">header=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#8f5902"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">TRUE</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">sep
+=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;,&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">na.strings=</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>c</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">,</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;NA&quot;</FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">))</FONT></FONT><BR><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">ptest
+&lt;-</FONT></FONT><FONT COLOR="#4e9a06"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">
+</FONT></FONT></FONT><FONT COLOR="#204a87"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><B>predict</B></FONT></FONT></FONT><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">(rfModel,
+predictionTest)</FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">ptest</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.13in; background: #f8f8f8"><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+ B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B </FONT></FONT><BR><FONT FACE="Consolas, serif"><FONT SIZE=2 STYLE="font-size: 11pt">##
+Levels: A B C D E</FONT></FONT></P>
+<H1 CLASS="western"><A NAME="conclusion"></A>Conclusion</H1>
+<P STYLE="margin-bottom: 0.13in">The accuracy of the model with 99.4%
+accuracy provided the following predictions:</P>
+<P STYLE="margin-bottom: 0.13in">B A B A A E D B A A B C B A E E A B
+B B</P>
+</BODY>
+</HTML>
